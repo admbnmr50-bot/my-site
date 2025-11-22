@@ -1,75 +1,7 @@
-// App.jsx
-import React from "react";
+
 import "./App.css";
 
-// Swiper
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper";
-import "swiper/css";
-import "swiper/css/navigation";
-
 export default function App() {
-  // --- هنا كل الأوصاف الاحترافية (1 إلى 48) ---
-  const captions = [
-    "هيكل لوحة كهربائية في مرحلة التجهيز، يظهر مجاري التثبيت قبل تركيب المكونات.",
-    "بورتريه لفني كهربائي محترف مع أدواته، يعكس الخبرة والمهنية في التنفيذ.",
-    "فني يقوم بمعايرة وبرمجة شاشة LED كبيرة للتأكد من دقة الألوان.",
-    "اختبار شاشة LED عبر البرنامج، فحص تطابق الألوان وجودة العرض.",
-    "شاشة LED داخلية تعرض مؤثرات ضوئية في قاعة مناسبات بعد التركيب.",
-    "لوحة كهربائية في مرحلة تمديد الأسلاك مع تنظيم احترافي للأجزاء.",
-    "برمجة شاشة LED من حاسوب للتحكم بالمحتوى والسطوع وإعداد المؤثرات.",
-    "لوحة كهربائية مرتبة بدقة مع توزيع واضح للأسلاك والمفاتيح.",
-    "تجهيز لوحة كهربائية كبيرة وتركيب وحدات التحكم وفق المعايير.",
-    "شاشة LED جديدة أثناء الفحص في الورشة قبل التسليم والتركيب النهائي.",
-    "تفاصيل توصيلات داخل لوحة تحكم بإظهار دقة وصل الأسلاك والموصلات.",
-    "مشهد جزئي لتركيب شاشة عرض داخلية أو اختبار لقطات العرض.",
-    "فني يقوم بصيانة لوحة تحكم داخل موقع العمل مع أدوات السلامة.",
-    "تركيب وحدات أو أجهزة على جدار مع تمديدات كهربائية مرئية قبل التشطيب.",
-    "شعار ADAMOMER الرسمي للعلامة التجارية — هوية احترافية للشركة.",
-    "واجهة مبنى مزينة بعمود إضاءة LED خارجي يظهر تنفيذًا احترافيًا للواجهات.",
-    "عمل فني لتمديد وتوصيل الأسلاك داخل لوحة كهربائية بتنظيم واضح.",
-    "شاشة LED أثناء فحص البكسلات أو اختبار وحدات العرض بالورشة.",
-    "لوحة كهربائية احترافية بألوان واضحة ووحدات حماية وتنظيم أسلاك مُحكم.",
-    "برمجة وتعديل إعدادات العرض على شاشة LED بواسطة الحاسوب.",
-    "فني يعمل على لوحة توزيع كبيرة لضبط التوصيلات ووحدات التحكم.",
-    "تنظيم صفوف اللوحات داخل غرفة تحكم، مع فني يقوم بالتركيب.",
-    "تفاصيل قريبة لمكونات داخل لوحة كهربائية أثناء الفحص اليدوي.",
-    "فحص يدوي للأسلاك والموصلات داخل لوحة كهربائية قبل الإغلاق.",
-    "رف وحدات تحكم LED أو بطاريات عرض مثبتة مع مؤشرات تشغيل خضراء.",
-    "لوحة كهربائية صغيرة تحتوي قواطع ووصلات منظمة بدقة.",
-    "عرض متكامل لعدة وحدات تحكم داخل رف مع مؤشرات تشغيل واضحة.",
-    "شاشة مراقبة متعددة القنوات (CCTV) تعرض لقطات لضمان جودة التركيب.",
-    "لقطة جانبية لواجهة لوحة إعلانية أو شاشة خارجية أثناء التركيب.",
-    "مخطط توصيلات داخل لوحة يوضح الترتيب الهندسي للأسلاك والمفاتيح.",
-    "فني يقوم بضبط وحدات داخل لوحة التوزيع أثناء التركيب أو الصيانة.",
-    "وحدات إلكترونية مُثبتة مع إضاءة حالة تُظهر التشغيل الصحيح.",
-    "صف وحدات إلكترونية مع مؤشرات LED ذات إضاءة خضراء تدل على الأداء.",
-    "لوحة برتقالية اللون بها مفاتيح وحماية مرتبة لسهولة الصيانة.",
-    "صندوق تحكم مثبت يحتوي على قواطع وأجهزة تحكم أنيقة ومنظمة.",
-    "تصميم داخلي لسقف مزود بإضاءة LED زخرفية عصرية للمساحات الفندقية.",
-    "رف وحدات تشغيل مع كابلات وتمديدات منظمة بواسطة فني مختص.",
-    "واجهة شاشة خارجية كبيرة مثبتة ومحكمة التركيب على الواجهة المعمارية.",
-    "شعار الشركة مستخدم داخل مواد العرض أو ملف التصميم الخاص بالمشروع.",
-    "لقطة لواجهة شاشة خارجية أثناء الاختبار تُظهر تدرج الإضاءة وسلامة التركيب.",
-    "تفاصيل قريبة لموصلات داخل لوحة مع أرقام تعريفية وترقيم احترافي.",
-    "لقطة مُكبرة لذراع فني يعمل على وحدات داخلية بإضاءة تشغيل.",
-    "لوحة توزيع مع وحدات حماية واضحة الأسلاك والملصقات التنظيمية.",
-    "تجهيز رف تحكم في ورشة العمل قبل النقل والتركيب بالموقع.",
-    "مظهر خارجي لواجهة LED كبيرة مثبتة بشكل مستقيم واحترافي.",
-    "لقطة عرضية لواجهة LED أثناء التركيب تُظهر أجزاء الدعم المعدنية.",
-    "تركيب نهائي لشاشة LED في قاعة فخمة — عرض منسق مع السلالم والديكور.",
-    "شاشة LED داخلية تعرض مشهداً طبيعياً رائعاً — تركيب لموقع فعاليات."
-  ];
-
-  // عدد الصور المتاح (تأكد أن لديك 1.jpg .. 48.jpg في /public)
-  const total = 48;
-
-  const items = Array.from({ length: total }, (_, i) => ({
-    id: i + 1,
-    src: `/${i + 1}.jpg`,
-    caption: captions[i] || `صورة من أعمالنا رقم ${i + 1}`
-  }));
-
   return (
     <div className="bcn-bg">
       <nav className="bcn-navbar">
@@ -90,36 +22,42 @@ export default function App() {
       <main className="bcn-hero-section">
         <div className="bcn-hero-content">
           <h1 className="bcn-hero-title">ADAM – متخصص الشاشات والأنظمة الكهربائية في صنعاء</h1>
-          <p className="bcn-hero-desc">خبرة منذ 2016 – تنفيذ احترافي وجودة مضمونة</p>
+          <p className="bcn-hero-desc">
+            خبرة منذ 2016 – تنفيذ احترافي وجودة مضمونة
+          </p>
           <a href="#contact" className="bcn-hero-btn">اتصل الآن: 771199341</a>
         </div>
       </main>
 
-      {/* About */}
+      {/* About Section */}
       <section className="bcn-section" id="about">
         <h2 className="bcn-section-title">من نحن</h2>
         <p className="bcn-section-desc">فريق مهني بقيادة المهندس أدم عمر، متخصصون في الأنظمة الكهربائية، شبكات الإنترنت، وشاشات العرض الحديثة. نلتزم بأعلى معايير الجودة والسلامة.</p>
       </section>
 
-      {/* Services */}
+      {/* Services Section */}
       <section className="bcn-section" id="services">
         <h2 className="bcn-section-title">خدماتنا</h2>
         <div className="bcn-services-grid">
+          {/* Service Card 1 */}
           <div className="bcn-service-card">
             <div className="bcn-service-img bcn-img-placeholder">صورة الخدمة</div>
             <h3>تركيب شاشات LED</h3>
             <p>تركيب وبرمجة شاشات LED داخلية وخارجية بأحدث التقنيات وبجودة عالية.</p>
           </div>
+          {/* Service Card 2 */}
           <div className="bcn-service-card">
             <div className="bcn-service-img bcn-img-placeholder">صورة الخدمة</div>
             <h3>تمديدات كهربائية</h3>
             <p>تنفيذ تمديدات كهربائية سكنية وتجارية مع ضمان الأمان والكفاءة.</p>
           </div>
+          {/* Service Card 3 */}
           <div className="bcn-service-card">
             <div className="bcn-service-img bcn-img-placeholder">صورة الخدمة</div>
             <h3>شبكات MikroTik</h3>
             <p>تصميم وإعداد شبكات الإنترنت والتحكم الذكي باستخدام أجهزة MikroTik.</p>
           </div>
+          {/* Service Card 4 */}
           <div className="bcn-service-card">
             <div className="bcn-service-img bcn-img-placeholder">صورة الخدمة</div>
             <h3>شاشات 3D الإعلانية</h3>
@@ -128,50 +66,38 @@ export default function App() {
         </div>
       </section>
 
-      {/* Portfolio */}
+      {/* Portfolio Section */}
       <section className="bcn-section" id="portfolio">
         <h2 className="bcn-section-title">أعمالنا</h2>
-
-        {/* --- GRID (desktop & tablet) --- */}
-        <div className="bcn-portfolio-grid" role="list">
-          {items.map((it) => (
-            <div className="bcn-portfolio-item" key={it.id} role="listitem">
+        <div className="bcn-portfolio-grid">
+          {[
+            "لوحة كهربائية مفتوحة: تظهر القواطع، الأسلاك الملونة، والوحدات الكهربائية مرتبة بشكل منظم.",
+            "فني كهربائي يعمل: يركب الأسلاك بعناية داخل لوحة تحكم.",
+            "وحدات ADAM مثبتة: أضواء LED خضراء تشير للتشغيل السليم.",
+            "تصميم سقفي حديث: إضاءة LED دائرية متدرجة كجزء من ديكور داخلي.",
+            "لوحة كهربائية مغلقة: مع جهاز تحكم أو محول وتوصيلات خارجية واضحة.",
+            "زاوية سقف مضاءة: توضح توزيع الإضاءة ونمط التصميم الداخلي.",
+            "لوحة تحكم صغيرة: تحتوي وحدات تحكم وأشرطة أطراف بتوصيلات مرتبة.",
+            "لوحة كهربائية مفتوحة: أسلاك متصلة بأشرطة الأطراف، تُظهر كثافة وتنظيم الأسلاك.",
+            "لوحة كهربائية أخرى: صفوف الأسلاك واضحة، جزء من نفس المشروع أو لوحة ثانية.",
+            "وحدات ADAM على رف: أضواء LED خضراء، زاوية عرض مختلفة عن الصورة 3.",
+            "لوحة كهربائية من زاوية منخفضة: تظهر التوصيلات واللوحة من الأسفل.",
+            "فني أثناء صيانة: يعمل على لوحة كهربائية داخل موقع العمل مع معدات السلامة.",
+            "لوحة صغيرة حمراء: تحتوي على قواطع وأشرطة أطراف لتوصيلات فرعية.",
+            "فني يركب لوحة كبيرة: يربط الوصلات بعناية مع إضاءة داخلية للوحة
+            ."
+          ].map((caption, i) => (
+            <div className="bcn-portfolio-item" key={i}>
               <div className="bcn-portfolio-img">
-                <img src={it.src} alt={it.caption} />
+                <img src={`/${i+1}.jpg`} alt={caption} style={{width:'100%',height:'100%',objectFit:'cover',borderRadius:'12px 12px 0 0'}} />
               </div>
-              <div className="bcn-portfolio-overlay">
-                <p>{it.caption}</p>
-                <span className="bcn-portfolio-badge">عرض الصورة</span>
-              </div>
+              <span>{caption}</span>
             </div>
           ))}
         </div>
-
-        {/* --- SWIPER (mobile: يظهر بدلاً من الشبكة) --- */}
-        <div className="bcn-portfolio-swiper">
-          <Swiper
-            modules={[Navigation]}
-            navigation
-            spaceBetween={12}
-            slidesPerView={1}
-            breakpoints={{
-              480: { slidesPerView: 1 },
-              768: { slidesPerView: 2 }
-            }}
-          >
-            {items.map((it) => (
-              <SwiperSlide key={`s-${it.id}`}>
-                <div className="bcn-slide-item">
-                  <img src={it.src} alt={it.caption} />
-                  <div className="bcn-slide-caption">{it.caption}</div>
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
       </section>
 
-      {/* Why us */}
+      {/* Why Us Section */}
       <section className="bcn-section" id="why">
         <h2 className="bcn-section-title">لماذا نحن؟</h2>
         <div className="bcn-why-list">
@@ -181,7 +107,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* Contact */}
+      {/* Contact Section */}
       <section className="bcn-section" id="contact">
         <h2 className="bcn-section-title">تواصل معنا</h2>
         <div className="bcn-contact-box">

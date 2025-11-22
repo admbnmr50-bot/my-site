@@ -1,124 +1,139 @@
-import "./App.css";
+/* Portfolio Section (Pure React - Masonry + Filter + Lightbox Slider) */
+import { useState, useMemo, useEffect } from "react";
+
+function Portfolio() {
+  // عدد الصور الإجمالي (غيّره لو أضفت/حذفت صور)
+  const TOTAL = 48;
+
+  // تصنيف الصور حسب النطاق (مثال: 1-16 كهرباء، 17-32 شاشات، 33-48 شبكات)
+  const getCategory = (index) => {
+    const n = index + 1;
+    if (n <= 16) return "كهرباء";
+    if (n <= 32) return "شاشات";
+    return "شبكات";
+  };
+
+  // بناء مصفوفة الصور مع التصنيفات والعناوين
+  const images = useMemo(() => {
+    return Array.from({ length: TOTAL }, (_, i) => ({
+      id: i + 1,
+      src: `/${i + 1}.jpg`, // الصور يجب أن تكون في public/1.jpg ... public/48.jpg
+      alt: `عمل رقم ${i + 1}`,
+      category: getCategory(i),
+      title: `عمل رقم ${i + 1}`,
+    }));
+  }, [TOTAL]);
+
+  const [filter, setFilter] = useState("الكل"); // فلاتر: الكل, كهرباء, شاشات, شبكات
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const filtered = useMemo(
+    () => (filter === "الكل" ? images : images.filter((img) => img.category === filter)),
+    [images, filter]
+  );
+
+  // فتح اللايت بوكس على صورة معينة (index داخل filtered)
+  const openLightbox = (index) => {
+    setCurrentIndex(index);
+    setLightboxOpen(true);
+  };
+
+  const closeLightbox = () => setLightboxOpen(false);
+
+  const gotoNext = () => setCurrentIndex((idx) => (idx + 1) % filtered.length);
+  const gotoPrev = () => setCurrentIndex((idx) => (idx - 1 + filtered.length) % filtered.length);
+
+  // لوحة المفاتيح: Esc لإغلاق، أسهم للتنقل
+  useEffect(() => {
+    if (!lightboxOpen) return;
+    const onKey = (e) => {
+      if (e.key === "Escape") closeLightbox();
+      if (e.key === "ArrowRight") gotoNext();
+      if (e.key === "ArrowLeft") gotoPrev();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [lightboxOpen, filtered.length]);
+
+  return (
+    <section className="bcn-section" id="portfolio">
+      <h2 className="bcn-section-title">أعمالنا</h2>
+
+      {/* Filter Buttons */}
+      <div className="portfolio-filters">
+        {["الكل", "كهرباء", "شاشات", "شبكات"].map((cat) => (
+          <button
+            key={cat}
+            className={`filter-btn ${filter === cat ? "active" : ""}`}
+            onClick={() => setFilter(cat)}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
+
+      {/* Masonry Grid (CSS columns) */}
+      <div className="bcn-portfolio-grid masonry">
+        {filtered.map((img, idx) => (
+          <div
+            className="bcn-portfolio-item masonry-item"
+            key={img.id}
+            onClick={() => openLightbox(idx)}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => { if (e.key === "Enter") openLightbox(idx); }}
+          >
+            <div className="bcn-portfolio-img">
+              <img
+                src={img.src}
+                alt={img.alt}
+                loading="lazy"
+                style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "12px 12px 0 0" }}
+              />
+            </div>
+            <span className="portfolio-caption">{img.title}</span>
+            <span className="portfolio-tag">{img.category}</span>
+          </div>
+        ))}
+      </div>
+
+      {/* Lightbox + Slider */}
+      {lightboxOpen && filtered.length > 0 && (
+        <div className="lightbox-overlay" onClick={closeLightbox}>
+          <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
+            <button className="lb-close" onClick={closeLightbox} aria-label="Close">×</button>
+            <button className="lb-prev" onClick={gotoPrev} aria-label="Prev">‹</button>
+
+            <div className="lb-image-wrap">
+              <img
+                src={filtered[currentIndex].src}
+                alt={filtered[currentIndex].alt}
+                className="lb-image"
+              />
+              <div className="lb-caption">
+                <div>{filtered[currentIndex].title}</div>
+                <div className="lb-category">{filtered[currentIndex].category}</div>
+                <div className="lb-counter">{currentIndex + 1} / {filtered.length}</div>
+              </div>
+            </div>
+
+            <button className="lb-next" onClick={gotoNext} aria-label="Next">›</button>
+          </div>
+        </div>
+      )}
+    </section>
+  );
+}
 
 export default function App() {
   return (
     <div className="bcn-bg">
+      {/* ... بقية الصفحة كما كانت (navbar, hero, about, services) */}
+      {/* استبدل الجزء الخاص بالأعمال بهذا المكون */}
+      <Portfolio />
 
-      {/* Navbar */}
-      <nav className="bcn-navbar">
-        <div className="bcn-navbar-content">
-          <img src="/SH.png" alt="Logo" className="bcn-logo" />
-          <ul className="bcn-nav-list">
-            <li>الرئيسية</li>
-            <li>من نحن</li>
-            <li>الخدمات</li>
-            <li>الأعمال</li>
-            <li>لماذا نحن؟</li>
-            <li>تواصل معنا</li>
-          </ul>
-        </div>
-      </nav>
-
-      {/* Hero Section */}
-      <main className="bcn-hero-section">
-        <div className="bcn-hero-content">
-          <h1 className="bcn-hero-title">ADAM – متخصص الشاشات والأنظمة الكهربائية في صنعاء</h1>
-          <p className="bcn-hero-desc">
-            خبرة منذ 2016 – تنفيذ احترافي وجودة مضمونة
-          </p>
-          <a href="#contact" className="bcn-hero-btn">اتصل الآن: 771199341</a>
-        </div>
-      </main>
-
-      {/* About Section */}
-      <section className="bcn-section" id="about">
-        <h2 className="bcn-section-title">من نحن</h2>
-        <p className="bcn-section-desc">
-          فريق مهني بقيادة المهندس أدم عمر، متخصصون في الأنظمة الكهربائية، شبكات الإنترنت، وشاشات العرض الحديثة.
-        </p>
-      </section>
-
-      {/* Services Section */}
-      <section className="bcn-section" id="services">
-        <h2 className="bcn-section-title">خدماتنا</h2>
-        <div className="bcn-services-grid">
-
-          <div className="bcn-service-card">
-            <div className="bcn-service-img bcn-img-placeholder">صورة الخدمة</div>
-            <h3>تركيب شاشات LED</h3>
-            <p>تركيب وبرمجة شاشات LED داخلية وخارجية بأحدث التقنيات.</p>
-          </div>
-
-          <div className="bcn-service-card">
-            <div className="bcn-service-img bcn-img-placeholder">صورة الخدمة</div>
-            <h3>تمديدات كهربائية</h3>
-            <p>تنفيذ تمديدات كهربائية سكنية وتجارية مع ضمان الأمان.</p>
-          </div>
-
-          <div className="bcn-service-card">
-            <div className="bcn-service-img bcn-img-placeholder">صورة الخدمة</div>
-            <h3>شبكات MikroTik</h3>
-            <p>تصميم وإعداد شبكات الإنترنت والتحكم الذكي.</p>
-          </div>
-
-          <div className="bcn-service-card">
-            <div className="bcn-service-img bcn-img-placeholder">صورة الخدمة</div>
-            <h3>شاشات 3D الإعلانية</h3>
-            <p>برمجة وعرض شاشات 3D بأحدث المؤثرات البصرية.</p>
-          </div>
-
-        </div>
-      </section>
-
-      {/* Portfolio Section */}
-      <section className="bcn-section" id="portfolio">
-        <h2 className="bcn-section-title">أعمالنا</h2>
-
-        <div className="bcn-portfolio-grid">
-          {Array.from({ length: 48 }, (_, i) => (
-            <div className="bcn-portfolio-item" key={i}>
-              <div className="bcn-portfolio-img">
-                <img
-                  src={`/${i + 1}.jpg`}
-                  alt={`عمل رقم ${i + 1}`}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                    borderRadius: "12px 12px 0 0",
-                  }}
-                />
-              </div>
-              <span>عمل رقم {i + 1}</span>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Why Us */}
-      <section className="bcn-section" id="why">
-        <h2 className="bcn-section-title">لماذا نحن؟</h2>
-        <div className="bcn-why-list">
-          <div className="bcn-why-item">خبرة منذ 2016</div>
-          <div className="bcn-why-item">برمجة وتركيب شاشات LED و3D</div>
-          <div className="bcn-why-item">أنظمة شبكات احترافية MikroTik</div>
-        </div>
-      </section>
-
-      {/* Contact */}
-      <section className="bcn-section" id="contact">
-        <h2 className="bcn-section-title">تواصل معنا</h2>
-        <div className="bcn-contact-box">
-          <div>📞 771199341 / 730044892</div>
-          <div>📧 aadm28285@gmail.com</div>
-          <div>📍 صنعاء – اليمن</div>
-
-          <a href="https://wa.me/967771199341" className="bcn-hero-btn" target="_blank">
-            تواصل واتساب
-          </a>
-        </div>
-      </section>
-
+      {/* بقية الأقسام (why, contact) ... */}
     </div>
   );
 }

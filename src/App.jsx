@@ -1,4 +1,3 @@
-
 import "./App.css";
 
 export default function App() {
@@ -22,9 +21,7 @@ export default function App() {
       <main className="bcn-hero-section">
         <div className="bcn-hero-content">
           <h1 className="bcn-hero-title">ADAM – متخصص الشاشات والأنظمة الكهربائية في صنعاء</h1>
-          <p className="bcn-hero-desc">
-            خبرة منذ 2016 – تنفيذ احترافي وجودة مضمونة
-          </p>
+          <p className="bcn-hero-desc">خبرة منذ 2016 – تنفيذ احترافي وجودة مضمونة</p>
           <a href="#contact" className="bcn-hero-btn">اتصل الآن: 771199341</a>
         </div>
       </main>
@@ -32,32 +29,34 @@ export default function App() {
       {/* About Section */}
       <section className="bcn-section" id="about">
         <h2 className="bcn-section-title">من نحن</h2>
-        <p className="bcn-section-desc">فريق مهني بقيادة المهندس أدم عمر، متخصصون في الأنظمة الكهربائية، شبكات الإنترنت، وشاشات العرض الحديثة. نلتزم بأعلى معايير الجودة والسلامة.</p>
+        <p className="bcn-section-desc">
+          فريق مهني بقيادة المهندس أدم عمر، متخصصون في الأنظمة الكهربائية، شبكات الإنترنت، وشاشات العرض الحديثة.
+          نلتزم بأعلى معايير الجودة والسلامة.
+        </p>
       </section>
 
       {/* Services Section */}
       <section className="bcn-section" id="services">
         <h2 className="bcn-section-title">خدماتنا</h2>
         <div className="bcn-services-grid">
-          {/* Service Card 1 */}
           <div className="bcn-service-card">
             <div className="bcn-service-img bcn-img-placeholder">صورة الخدمة</div>
             <h3>تركيب شاشات LED</h3>
             <p>تركيب وبرمجة شاشات LED داخلية وخارجية بأحدث التقنيات وبجودة عالية.</p>
           </div>
-          {/* Service Card 2 */}
+
           <div className="bcn-service-card">
             <div className="bcn-service-img bcn-img-placeholder">صورة الخدمة</div>
             <h3>تمديدات كهربائية</h3>
             <p>تنفيذ تمديدات كهربائية سكنية وتجارية مع ضمان الأمان والكفاءة.</p>
           </div>
-          {/* Service Card 3 */}
+
           <div className="bcn-service-card">
             <div className="bcn-service-img bcn-img-placeholder">صورة الخدمة</div>
             <h3>شبكات MikroTik</h3>
             <p>تصميم وإعداد شبكات الإنترنت والتحكم الذكي باستخدام أجهزة MikroTik.</p>
           </div>
-          {/* Service Card 4 */}
+
           <div className="bcn-service-card">
             <div className="bcn-service-img bcn-img-placeholder">صورة الخدمة</div>
             <h3>شاشات 3D الإعلانية</h3>
@@ -84,12 +83,20 @@ export default function App() {
             "لوحة كهربائية من زاوية منخفضة: تظهر التوصيلات واللوحة من الأسفل.",
             "فني أثناء صيانة: يعمل على لوحة كهربائية داخل موقع العمل مع معدات السلامة.",
             "لوحة صغيرة حمراء: تحتوي على قواطع وأشرطة أطراف لتوصيلات فرعية.",
-            "فني يركب لوحة كبيرة: يربط الوصلات بعناية مع إضاءة داخلية للوحة
-            ."
+            "فني يركب لوحة كبيرة: يربط الوصلات بعناية مع إضاءة داخلية للوحة."
           ].map((caption, i) => (
             <div className="bcn-portfolio-item" key={i}>
               <div className="bcn-portfolio-img">
-                <img src={`/${i+1}.jpg`} alt={caption} style={{width:'100%',height:'100%',objectFit:'cover',borderRadius:'12px 12px 0 0'}} />
+                <img
+                  src={`/${i + 1}.jpg`}
+                  alt={caption}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    borderRadius: "12px 12px 0 0",
+                  }}
+                />
               </div>
               <span>{caption}</span>
             </div>
@@ -114,7 +121,14 @@ export default function App() {
           <div>📞 771199341 / 730044892</div>
           <div>📧 aadm28285@gmail.com</div>
           <div>📍 صنعاء – اليمن</div>
-          <a href="https://wa.me/967771199341" className="bcn-hero-btn" target="_blank" rel="noopener noreferrer">تواصل واتساب</a>
+          <a
+            href="https://wa.me/967771199341"
+            className="bcn-hero-btn"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            تواصل واتساب
+          </a>
         </div>
       </section>
     </div>
